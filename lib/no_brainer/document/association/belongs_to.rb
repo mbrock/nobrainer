@@ -26,6 +26,15 @@ class NoBrainer::Document::Association::BelongsTo
       target_model.unscoped
     end
 
+    def inverses
+      target_model.association_metadata.values.select do |assoc|
+        assoc.is_a?(NoBrainer::Document::Association::HasMany::Metadata) &&
+          assoc.foreign_key == self.foreign_key &&
+          assoc.primary_key == self.primary_key &&
+          assoc.target_model.root_class == owner_model.root_class
+      end
+    end
+
     def hook
       super
 

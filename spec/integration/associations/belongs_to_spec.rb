@@ -79,4 +79,10 @@ describe 'belongs_to' do
       expect { Comment.create(:post => Comment.new) }.to raise_error NoBrainer::Error::InvalidType
     end
   end
+
+  context 'metadata' do
+    it 'finds the inverse' do
+      Comment.association_metadata[:post].inverses.should == [Post.association_metadata[:comments]]
+    end
+  end
 end
