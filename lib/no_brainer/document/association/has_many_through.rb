@@ -26,6 +26,10 @@ class NoBrainer::Document::Association::HasManyThrough
       association = meta[target_name.to_sym] || meta[target_name.to_s.singularize.to_sym]
       association.target_model
     end
+
+    def inverses
+      []
+    end
   end
 
   def read
